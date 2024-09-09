@@ -1,0 +1,21 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block titulo %}
+    <title>Login</title>
+{% endblock %}
+{% block content %}
+    <form action="{% url 'login' %}" method="POST">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+            <div class="form-group">                
+                <label for="{{ field.id_for_label }}" style="color:#D9D9D9; margin-bottom: 5px;">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+            
+        <div class="form-group">
+            <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Logar</button>
+        </div>
+    </form>
+{% endblock %}
+{% include 'partials/_header.html' %}

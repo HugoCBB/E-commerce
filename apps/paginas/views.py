@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from . models import Produto
 # Create your views here.
 def home(request):
-    produtos = Produto.objects.filter(publicada=True)
-    return render(request, 'site/home.html', {'cards':produtos})
+    produto = Produto.objects.filter(publicada=True)
+    return render(request, 'paginas/home.html', {'cards':produto})
 
-def produtos(request):
-    return render(request, 'site/produtos.html')
+def produtos(request, produto_id):
+    produto = get_object_or_404(Produto, pk=produto_id)
+    return render(request, 'paginas/produtos.html', {'produto':produto})
