@@ -26,4 +26,29 @@ def login(request):
 
 def cadastrar(request):
     form = CadastroForm(request.POST or None)
-    return render(request, 'usuario/cadastrar.html')
+    if request.method == 'POST':
+        
+        if form.is_valid():
+            if form.cleaned_data['senha1'] != form.cleaned_data['senha2']:
+                return redirect('cadastro')                
+            else:
+                nome = form.cleaned_data['nome']
+                email = form.cleaned_data['email']
+                senha = form.cleaned_data['senha1']
+            
+            nome = form['nome'].value()
+            email = form['email'].value()        
+            senha = form['senha1'].value()
+
+            if User.objects.filter(username=nome).exists():
+                return redirect('cadastro')
+            else:
+                usuario = User.objects.create_user(
+                    username=nome,
+                    email=email,
+                    password=senha
+                    )
+                usuario.save()
+                return redirect('login')
+            
+    return render(request, 'usuario/cadastrar.html', {'form':form})

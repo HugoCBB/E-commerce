@@ -1,9 +1,21 @@
 {% extends 'shared/base.html' %}
 {% load static %}
 {% block titulo %}
-    <title>Cadastrar</title>
+    <title>cadastro</title>
 {% endblock %}
-
-
-
+{% block content %}
+    <form action="{% url 'cadastro' %}" method="POST">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+            <div class="form-group">                
+                <label for="{{ field.id_for_label }}" style="color:black; margin-bottom: 5px;">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+            
+        <div class="form-group">
+            <button class="btn btn-success col-12" style="padding: top 5px;" type="submit">Cadastrar</button>
+        </div>
+    </form>
+{% endblock %}
 {% include 'partials/_header.html' %}
