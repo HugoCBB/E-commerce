@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from rolepermissions.roles import assign_role
 from django.contrib import auth
 from . forms import LoginForm, CadastroForm
 
@@ -18,27 +19,27 @@ def login(request):
             )
 
             if usuario is not None:
-                return redirect('home')
-            else:
                 return redirect('login')
+            else:
+                return redirect('home')
 
     return render(request, 'usuario/login.html', {'form':form})
 
 def cadastrar(request):
     form = CadastroForm(request.POST or None)
+    
     if request.method == 'POST':
-        
         if form.is_valid():
             if form.cleaned_data['senha1'] != form.cleaned_data['senha2']:
-                return redirect('cadastro')                
+                return redirect('cadastro')
             else:
                 nome = form.cleaned_data['nome']
                 email = form.cleaned_data['email']
-                senha = form.cleaned_data['senha1']
-            
+                senha = form.cleaned_data['senha1'] 
+
             nome = form['nome'].value()
             email = form['email'].value()        
-            senha = form['senha1'].value()
+            senha = form['senha1'].value()    
 
             if User.objects.filter(username=nome).exists():
                 return redirect('cadastro')
@@ -48,7 +49,11 @@ def cadastrar(request):
                     email=email,
                     password=senha
                     )
+                assign_role(usuario, 'gerente')
                 usuario.save()
-                return redirect('login')
-            
+                return redirect('login')    
     return render(request, 'usuario/cadastrar.html', {'form':form})
+
+def logout(request):
+    auth.logout(request)
+    return redirect('login')
