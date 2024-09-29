@@ -1,0 +1,11 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+{% block titulo %}
+    <title>Manager</title>
+{% endblock %}
+{% block content %}
+<ul  class="nav">
+    <a style="color: rgb(255, 255, 255); background: #000;" class="nav-link" href="{% url 'novo-produto' %}">Adicionar produto</a>
+</ul>
+
+{% endblock %}

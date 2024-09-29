@@ -3,6 +3,11 @@ from rolepermissions.decorators import has_role_decorator, has_permission_decora
 from .forms import ProdutoForm
 
 # Create your views here.
+@has_role_decorator('gerente')
+def manager(request):
+    return render(request, 'manager/manager.html')
+    
+
 
 @has_permission_decorator('adicionar_produtos')
 def AdicionarProduto(request):
@@ -15,3 +20,5 @@ def AdicionarProduto(request):
             return redirect('home')
     
     return render(request, 'manager/forms.html', {'form':form})
+
+

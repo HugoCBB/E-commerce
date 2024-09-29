@@ -37,6 +37,10 @@
                                 <i class="bi-cart-fill me-1"></i>
                                 Add to cart
                             </button>
+                            <ul>
+                                <a href="{% url 'editar-produto' produto.id %}">Editar produto</a>
+                                <a href="{% url 'deletar-produto' produto.id %}">Deletar produto</a>
+                            </ul>
                         </div>
                     </div>
                 </div>

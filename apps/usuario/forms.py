@@ -1,14 +1,25 @@
 from django import forms
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(
+    # email = forms.EmailField(
+    #     max_length=100,
+    #     label="Email",
+    #     required=True,
+    #     widget= forms.EmailInput(
+    #         attrs={
+    #             "class":"form-control",
+    #             "placeholder":"Digite seu email"
+    #         }
+    #     )
+    # )
+    nome = nome = forms.CharField(
         max_length=100,
-        label="Email",
+        label="Nome",
         required=True,
-        widget= forms.EmailInput(
+        widget= forms.TextInput(
             attrs={
                 "class":"form-control",
-                "placeholder":"Digite seu email"
+                "placeholder":"Digite o seu nome de usuario"
             }
         )
     )

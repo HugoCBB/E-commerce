@@ -10,18 +10,22 @@ def login(request):
 
     if request.method == 'POST':
         if form.is_valid():
-            email = form['email'].value()
+            nome = form['nome'].value()
             senha = form['senha'].value()
 
             usuario = auth.authenticate(
-                email=email,
+                request,
+                username=nome,
                 password = senha
             )
 
             if usuario is not None:
-                return redirect('login')
-            else:
+                auth.login(request, usuario)
                 return redirect('home')
+            else:
+                return redirect('login')
+        else:
+            print(form.error)
 
     return render(request, 'usuario/login.html', {'form':form})
 
@@ -49,7 +53,7 @@ def cadastrar(request):
                     email=email,
                     password=senha
                     )
-                assign_role(usuario, 'gerente')
+                assign_role(usuario, 'Usuario')
                 usuario.save()
                 return redirect('login')    
     return render(request, 'usuario/cadastrar.html', {'form':form})
