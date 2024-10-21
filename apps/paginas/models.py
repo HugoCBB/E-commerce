@@ -14,7 +14,7 @@ class Produto(models.Model):
     COLECOES = [
         ("CALÇA","Calça"),
         ("BLUSA","Blusa"),
-        ("Short","Short"),
+        ("SHORT","Short"),
     ]
     data = models.DateField(auto_now_add=True)
     nome = models.CharField(max_length=250)

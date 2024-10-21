@@ -53,7 +53,7 @@ def cadastrar(request):
                     email=email,
                     password=senha
                     )
-                assign_role(usuario, 'Usuario')
+                assign_role(usuario, 'usuario')
                 usuario.save()
                 return redirect('login')    
     return render(request, 'usuario/cadastrar.html', {'form':form})
